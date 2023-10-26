@@ -1,0 +1,21 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="by.loqueszs.spacexfan.MainActivity">
+
+    <item
+        android:id="@+id/rockets"
+        android:enabled="true"
+        android:icon="@drawable/rocket_24px"
+        android:title="@string/rockets" />
+    <item
+        android:id="@+id/favorites"
+        android:enabled="true"
+        android:icon="@drawable/favorite_24px"
+        android:title="@string/favorites" />
+    <item
+        android:id="@+id/launches"
+        android:enabled="true"
+        android:icon="@drawable/rocket_launch_24px"
+        android:title="@string/launches" />
+</menu>

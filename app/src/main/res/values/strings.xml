@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">SpaceX Fan</string>
+    <string name="action_settings">Settings</string>
+
+    <!-- Strings used for fragments for navigation -->
+    <string name="rockets_fragment_label">Rockets Fragment</string>
+    <string name="favorites_fragment_label">Favorites Fragment</string>
+    <string name="launches_fragment_label">Launches Fragment</string>
+    <string name="detail_fragment_label">Detail Fragment</string>
+
+<!--    Strings used for bottom navigation-->
+    <string name="rockets">Rockets</string>
+    <string name="favorites">Favorites</string>
+    <string name="launches">Launches</string>
+
+
+</resources>

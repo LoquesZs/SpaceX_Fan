@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/RocketsFragment">
+
+    <action
+        android:id="@+id/action_toRocketsFragment"
+        app:destination="@id/RocketsFragment" />
+
+    <action
+        android:id="@+id/action_toFavoritesFragment"
+        app:destination="@id/FavoritesFragment" />
+
+    <action
+        android:id="@+id/action_toLaunchesFragment"
+        app:destination="@id/LaunchesFragment" />
+
+    <fragment
+        android:id="@+id/RocketsFragment"
+        android:name="by.loqueszs.spacexfan.presentation.RocketsFragment"
+        android:label="@string/rockets_fragment_label"
+        tools:layout="@layout/fragment_rockets">
+
+        <action
+            android:id="@+id/action_RocketsFragment_to_RocketDetailFragment"
+            app:destination="@id/RocketDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/FavoritesFragment"
+        android:name="by.loqueszs.spacexfan.presentation.FavoritesFragment"
+        android:label="@string/favorites_fragment_label"
+        tools:layout="@layout/fragment_favorites">
+
+        <action
+            android:id="@+id/action_FavoritesFragment_to_RocketDetailFragment"
+            app:destination="@id/RocketDetailFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/LaunchesFragment"
+        android:name="by.loqueszs.spacexfan.presentation.LaunchesFragment"
+        android:label="@string/launches_fragment_label"
+        tools:layout="@layout/fragment_launches" />
+
+    <fragment
+        android:id="@+id/RocketDetailFragment"
+        android:name="by.loqueszs.spacexfan.presentation.RocketDetailFragment"
+        android:label="@string/detail_fragment_label"
+        tools:layout="@layout/fragment_rocket_detail" >
+        <argument
+            android:name="id"
+            app:argType="long" />
+    </fragment>
+
+</navigation>
