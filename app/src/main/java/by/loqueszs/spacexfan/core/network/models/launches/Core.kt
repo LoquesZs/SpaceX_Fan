@@ -5,16 +5,16 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Core(
-    val core: String,
-    val flight: Long,
-    val gridfins: Boolean,
-    val legs: Boolean,
-    val reused: Boolean,
+    val core: String? = null,
+    val flight: Long? = null,
+    val gridfins: Boolean? = null,
+    val legs: Boolean? = null,
+    val reused: Boolean? = null,
     @SerialName("landing_attempt")
-    val landingAttempt: Boolean,
+    val landingAttempt: Boolean? = null,
     @SerialName("landing_success")
-    val landingSuccess: Boolean,
+    val landingSuccess: Boolean? = null,
     @SerialName("landing_type")
-    val landingType: String,
-    val landpad: String,
+    val landingType: String? = null,
+    val landpad: String? = null
 )

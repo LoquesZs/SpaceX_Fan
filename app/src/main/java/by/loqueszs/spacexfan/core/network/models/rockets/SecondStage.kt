@@ -5,14 +5,14 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class SecondStage(
-    val thrust: Thrust,
-    val payloads: Payloads,
-    val reusable: Boolean,
-    val engines: Long,
+    val thrust: Thrust? = null,
+    val payloads: Payloads? = null,
+    val reusable: Boolean? = null,
+    val engines: Long? = null,
 
     @SerialName("fuel_amount_tons")
-    val fuelAmountTons: Long,
+    val fuelAmountTons: Float? = null,
 
     @SerialName("burn_time_sec")
-    val burnTimeSEC: Long
+    val burnTimeSEC: Long? = null
 )

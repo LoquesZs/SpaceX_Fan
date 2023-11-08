@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class LandingLegs(
-    val number: Long,
-    val material: String
+    val number: Long? = null,
+    val material: String? = null
 )

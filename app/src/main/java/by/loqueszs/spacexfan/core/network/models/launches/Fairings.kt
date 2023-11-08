@@ -5,9 +5,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Fairings(
-    val reused: Boolean,
+    val reused: Boolean? = null,
     @SerialName("recovery_attempt")
-    val recoveryAttempt: Boolean,
-    val recovered: Boolean,
-    val ships: List<String>
+    val recoveryAttempt: Boolean? = null,
+    val recovered: Boolean? = null,
+    val ships: List<String>? = emptyList()
 )

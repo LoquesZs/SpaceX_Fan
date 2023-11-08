@@ -6,17 +6,17 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class FirstStage(
     @SerialName("thrust_sea_level")
-    val thrustSeaLevel: Thrust,
+    val thrustSeaLevel: Thrust? = null,
 
     @SerialName("thrust_vacuum")
-    val thrustVacuum: Thrust,
+    val thrustVacuum: Thrust? = null,
 
-    val reusable: Boolean,
-    val engines: Long,
+    val reusable: Boolean? = null,
+    val engines: Long? = null,
 
     @SerialName("fuel_amount_tons")
-    val fuelAmountTons: Long,
+    val fuelAmountTons: Float? = null,
 
     @SerialName("burn_time_sec")
-    val burnTimeSEC: Long
+    val burnTimeSEC: Long? = null
 )

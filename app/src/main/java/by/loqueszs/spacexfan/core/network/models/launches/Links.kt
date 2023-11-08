@@ -5,13 +5,13 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Links(
-    val patch: Patch,
-    val reddit: Reddit,
-    val flickr: Flickr,
-    val presskit: String,
-    val webcast: String,
+    val patch: Patch? = null,
+    val reddit: Reddit? = null,
+    val flickr: Flickr? = null,
+    val presskit: String? = null,
+    val webcast: String? = null,
     @SerialName("youtube_id")
-    val youtubeId: String,
-    val article: String,
-    val wikipedia: String,
+    val youtubeId: String? = null,
+    val article: String? = null,
+    val wikipedia: String? = null
 )

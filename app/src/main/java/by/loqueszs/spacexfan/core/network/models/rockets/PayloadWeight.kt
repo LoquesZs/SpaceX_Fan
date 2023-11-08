@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class PayloadWeight(
-    val id: String,
-    val name: String,
-    val kg: Long,
-    val lb: Long
+    val id: String? = null,
+    val name: String? = null,
+    val kg: Long? = null,
+    val lb: Long? = null
 )

@@ -6,7 +6,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ISP(
     @SerialName("sea_level")
-    val seaLevel: Long,
+    val seaLevel: Long? = null,
 
-    val vacuum: Long
+    val vacuum: Long? = null
 )

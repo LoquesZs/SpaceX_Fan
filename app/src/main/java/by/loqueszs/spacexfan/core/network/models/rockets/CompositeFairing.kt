@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CompositeFairing(
-    val height: Diameter,
-    val diameter: Diameter
+    val height: Diameter? = null,
+    val diameter: Diameter? = null
 )

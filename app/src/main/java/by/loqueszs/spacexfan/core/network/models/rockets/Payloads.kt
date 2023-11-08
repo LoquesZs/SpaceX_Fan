@@ -6,8 +6,8 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class Payloads(
     @SerialName("composite_fairing")
-    val compositeFairing: CompositeFairing,
+    val compositeFairing: CompositeFairing? = null,
 
     @SerialName("option_1")
-    val option1: String
+    val option1: String? = null
 )

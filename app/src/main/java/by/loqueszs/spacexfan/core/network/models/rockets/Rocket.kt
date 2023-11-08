@@ -5,45 +5,45 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Rocket(
-    val height: Diameter,
-    val diameter: Diameter,
-    val mass: Mass,
+    val height: Diameter? = null,
+    val diameter: Diameter? = null,
+    val mass: Mass? = null,
 
     @SerialName("first_stage")
-    val firstStage: FirstStage,
+    val firstStage: FirstStage? = null,
 
     @SerialName("second_stage")
-    val secondStage: SecondStage,
+    val secondStage: SecondStage? = null,
 
-    val engines: Engines,
+    val engines: Engines? = null,
 
     @SerialName("landing_legs")
-    val landingLegs: LandingLegs,
+    val landingLegs: LandingLegs? = null,
 
     @SerialName("payload_weights")
-    val payloadWeights: List<PayloadWeight>,
+    val payloadWeights: List<PayloadWeight> = emptyList(),
 
     @SerialName("flickr_images")
-    val flickrImages: List<String>,
+    val flickrImages: List<String> = emptyList(),
 
-    val name: String,
-    val type: String,
-    val active: Boolean,
-    val stages: Long,
-    val boosters: Long,
+    val name: String? = null,
+    val type: String? = null,
+    val active: Boolean? = null,
+    val stages: Long? = null,
+    val boosters: Long? = null,
 
     @SerialName("cost_per_launch")
-    val costPerLaunch: Long,
+    val costPerLaunch: Long? = null,
 
     @SerialName("success_rate_pct")
-    val successRatePct: Long,
+    val successRatePct: Long? = null,
 
     @SerialName("first_flight")
-    val firstFlight: String,
+    val firstFlight: String? = null,
 
-    val country: String,
-    val company: String,
-    val wikipedia: String,
-    val description: String,
+    val country: String? = null,
+    val company: String? = null,
+    val wikipedia: String? = null,
+    val description: String? = null,
     val id: String
 )

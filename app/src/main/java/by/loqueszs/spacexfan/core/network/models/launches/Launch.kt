@@ -5,38 +5,38 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Launch(
-    val fairings: Fairings,
-    val links: Links,
+    val fairings: Fairings? = null,
+    val links: Links? = null,
     @SerialName("static_fire_date_utc")
-    val staticFireDateUtc: String,
+    val staticFireDateUtc: String? = null,
     @SerialName("static_fire_date_unix")
-    val staticFireDateUnix: Long,
-    val tdb: Boolean,
-    val net: Boolean,
-    val window: Long,
-    val rocket: String,
-    val success: Boolean,
-    val failures: List<Failure>,
-    val details: String,
-    val crew: List<String>,
-    val ships: List<String>,
-    val capsules: List<String>,
-    val payloads: List<String>,
-    val launchpad: String,
+    val staticFireDateUnix: Long? = null,
+    val tdb: Boolean? = null,
+    val net: Boolean? = null,
+    val window: Long? = null,
+    val rocket: String? = null,
+    val success: Boolean? = null,
+    val failures: List<Failure>? = emptyList(),
+    val details: String? = null,
+    val crew: List<String>? = emptyList(),
+    val ships: List<String> = emptyList(),
+    val capsules: List<String> = emptyList(),
+    val payloads: List<String> = emptyList(),
+    val launchpad: String? = null,
     @SerialName("auto_update")
-    val autoUpdate: Boolean,
+    val autoUpdate: Boolean? = null,
     @SerialName("flight_number")
-    val flightNumber: Long,
-    val name: String,
+    val flightNumber: Long? = null,
+    val name: String? = null,
     @SerialName("date_utc")
-    val dateUtc: String,
+    val dateUtc: String? = null,
     @SerialName("date_unix")
-    val dateUnix: Long,
+    val dateUnix: Long? = null,
     @SerialName("date_local")
-    val dateLocal: String,
+    val dateLocal: String? = null,
     @SerialName("date_precision")
-    val datePrecision: String,
-    val upcoming: Boolean,
-    val cores: List<Core>,
+    val datePrecision: String? = null,
+    val upcoming: Boolean? = null,
+    val cores: List<Core>? = emptyList(),
     val id: String
 )

@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Thrust(
-    val kN: Long,
-    val lbf: Long
+    val kN: Long? = null,
+    val lbf: Long? = null
 )

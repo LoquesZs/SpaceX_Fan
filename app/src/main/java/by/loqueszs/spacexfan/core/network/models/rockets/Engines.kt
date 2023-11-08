@@ -5,28 +5,28 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Engines(
-    val isp: ISP,
+    val isp: ISP? = null,
 
     @SerialName("thrust_sea_level")
-    val thrustSeaLevel: Thrust,
+    val thrustSeaLevel: Thrust? = null,
 
     @SerialName("thrust_vacuum")
-    val thrustVacuum: Thrust,
+    val thrustVacuum: Thrust? = null,
 
-    val number: Long,
-    val type: String,
-    val version: String,
-    val layout: String,
+    val number: Long? = null,
+    val type: String? = null,
+    val version: String? = null,
+    val layout: String? = null,
 
     @SerialName("engine_loss_max")
-    val engineLossMax: Long,
+    val engineLossMax: Long? = null,
 
     @SerialName("propellant_1")
-    val propellant1: String,
+    val propellant1: String? = null,
 
     @SerialName("propellant_2")
-    val propellant2: String,
+    val propellant2: String? = null,
 
     @SerialName("thrust_to_weight")
-    val thrustToWeight: Double
+    val thrustToWeight: Double? = null
 )

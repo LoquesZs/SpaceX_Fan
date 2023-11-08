@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Mass(
-    val kg: Long,
-    val lb: Long
+    val kg: Long? = null,
+    val lb: Long? = null
 )

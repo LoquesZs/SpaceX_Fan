@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Diameter(
-    val meters: Double,
-    val feet: Double
+    val meters: Double? = null,
+    val feet: Double? = null
 )
