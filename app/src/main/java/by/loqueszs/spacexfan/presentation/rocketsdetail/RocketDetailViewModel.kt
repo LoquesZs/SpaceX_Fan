@@ -44,4 +44,20 @@ class RocketDetailViewModel @Inject constructor(
     fun isFavorite(id: String): Boolean {
         return favorites.any { it.id == id }
     }
+
+    fun addToFavorites(rocketEntity: RocketEntity) {
+        repository.addToFavorites(rocketEntity)
+            .subscribe {
+                Log.d(javaClass.simpleName, "Added to favorites")
+            }
+            .addTo(compositeDisposable)
+    }
+
+    fun deleteFromFavorites(id: String) {
+        repository.deleteFromFavorites(id)
+            .subscribe {
+                Log.d(javaClass.simpleName, "Deleted from favorites")
+            }
+            .addTo(compositeDisposable)
+    }
 }

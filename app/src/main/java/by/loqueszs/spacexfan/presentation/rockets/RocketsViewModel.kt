@@ -55,7 +55,6 @@ class RocketsViewModel @Inject constructor(
 
     init {
         _result.addSource(rockets) { rocketsList ->
-            Log.d("Huj", "huj1")
             _result.value = rocketsList.map { rocket ->
                 Pair(
                     rocket,
@@ -64,7 +63,6 @@ class RocketsViewModel @Inject constructor(
             }
         }
         _result.addSource(favorites) { favoritesList ->
-            Log.d("Huj", "huj2")
             _result.value = rockets.value?.map { rocket ->
                 Pair(
                     rocket,
