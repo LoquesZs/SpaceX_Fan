@@ -17,6 +17,12 @@
     <string name="height">Height</string>
     <string name="diameter">Diameter</string>
     <string name="mass">Mass</string>
+    <string name="authentication_failed">Authentication failed</string>
+    <string name="fingerprint_authentication">Fingerprint authentication</string>
+    <string name="cancel">cancel</string>
+    <string name="biometric_hardware_is_unavailable">Biometric hardware is unavailable</string>
+    <string name="no_biometric_hardware">No biometric hardware</string>
+    <string name="biometric_none_enrolled">Biometric none enrolled</string>
 
 
 </resources>

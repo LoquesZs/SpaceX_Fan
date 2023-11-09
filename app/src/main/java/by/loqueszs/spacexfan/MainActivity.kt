@@ -3,8 +3,11 @@ package by.loqueszs.spacexfan
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricManager
+import androidx.biometric.BiometricPrompt
 import androidx.navigation.NavController
 import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
@@ -48,12 +51,14 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
                 }
                 R.id.favorites -> {
                     if (currentDestinationID != R.id.favorites) {
-                        navController.navigate(
-                            R.id.action_toFavoritesFragment
-                        )
-                        it.isChecked = false
+                        checkAndAuthenticate {
+                            navController.popBackStack()
+                            navController.navigate(
+                                R.id.action_toFavoritesFragment
+                            )
+                            it.isChecked = false
+                        }
                     }
-                    return@setOnItemSelectedListener true
                 }
                 R.id.launches -> {
                     if (currentDestinationID != R.id.launches) {
@@ -81,7 +86,8 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
         destination: NavDestination,
         arguments: Bundle?
     ) {
-        when(destination.id) {
+        Log.d("Navigation", "Destination changed: ${controller.previousBackStackEntry?.destination?.label} to ${destination.label}")
+        when (destination.id) {
             R.id.RocketsFragment -> {
                 setBottomNavItemSelected(R.id.rockets)
             }
@@ -100,5 +106,74 @@ class MainActivity : AppCompatActivity(), NavController.OnDestinationChangedList
     private fun setBottomNavItemSelected(@IdRes id: Int) {
         if (binding.bottomNavigation.visibility != View.VISIBLE) binding.bottomNavigation.visibility = View.VISIBLE
         binding.bottomNavigation.menu.findItem(id).isChecked = true
+    }
+
+    private fun checkAndAuthenticate(onSuccess: () -> Unit) {
+        val biometricManager = BiometricManager.from(this)
+        when (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)) {
+            BiometricManager.BIOMETRIC_SUCCESS -> {
+                showBiometricPrompt(
+                    onSuccess = onSuccess,
+                    onError = { code, message ->
+                        Toast.makeText(this, "$code:$message", Toast.LENGTH_LONG).show()
+                    },
+                    onFail = {
+                        Toast.makeText(
+                            this,
+                            getString(R.string.authentication_failed),
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+                )
+            }
+            BiometricManager.BIOMETRIC_ERROR_HW_UNAVAILABLE -> {
+                Toast.makeText(
+                    this,
+                    getString(R.string.biometric_hardware_is_unavailable),
+                    Toast.LENGTH_LONG
+                ).show()
+            }
+            BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE -> {
+                Toast.makeText(this, getString(R.string.no_biometric_hardware), Toast.LENGTH_LONG).show()
+            }
+            BiometricManager.BIOMETRIC_ERROR_NONE_ENROLLED -> {
+                Toast.makeText(this, getString(R.string.biometric_none_enrolled), Toast.LENGTH_LONG).show()
+                onSuccess()
+            }
+        }
+    }
+
+    private fun showBiometricPrompt(
+        onSuccess: () -> Unit,
+        onError: (errorCode: Int, errorMessage: String) -> Unit,
+        onFail: () -> Unit
+    ) {
+        val info = BiometricPrompt.PromptInfo.Builder()
+            .setTitle(getString(R.string.app_name))
+            .setSubtitle(getString(R.string.fingerprint_authentication))
+            .setNegativeButtonText(getString(R.string.cancel))
+            .setAllowedAuthenticators(BiometricManager.Authenticators.BIOMETRIC_STRONG)
+            .build()
+        val biometricPrompt = BiometricPrompt(
+            this,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    onSuccess()
+                }
+
+                override fun onAuthenticationError(errorCode: Int, errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    onError(errorCode, errString.toString())
+                    Log.d("BIOMETRIC PROMPT", "$errorCode $errString")
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    onFail()
+                }
+            }
+        )
+        biometricPrompt.authenticate(info)
     }
 }
