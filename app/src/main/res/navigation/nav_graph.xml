@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/RocketsFragment"
-        android:name="by.loqueszs.spacexfan.presentation.RocketsFragment"
+        android:name="by.loqueszs.spacexfan.presentation.rockets.RocketsFragment"
         android:label="@string/rockets_fragment_label"
         tools:layout="@layout/fragment_rockets">
 
@@ -30,7 +30,7 @@
 
     <fragment
         android:id="@+id/FavoritesFragment"
-        android:name="by.loqueszs.spacexfan.presentation.FavoritesFragment"
+        android:name="by.loqueszs.spacexfan.presentation.favorites.FavoritesFragment"
         android:label="@string/favorites_fragment_label"
         tools:layout="@layout/fragment_favorites">
 
@@ -41,18 +41,18 @@
 
     <fragment
         android:id="@+id/LaunchesFragment"
-        android:name="by.loqueszs.spacexfan.presentation.LaunchesFragment"
+        android:name="by.loqueszs.spacexfan.presentation.launches.LaunchesFragment"
         android:label="@string/launches_fragment_label"
         tools:layout="@layout/fragment_launches" />
 
     <fragment
         android:id="@+id/RocketDetailFragment"
-        android:name="by.loqueszs.spacexfan.presentation.RocketDetailFragment"
+        android:name="by.loqueszs.spacexfan.presentation.rocketsdetail.RocketDetailFragment"
         android:label="@string/detail_fragment_label"
         tools:layout="@layout/fragment_rocket_detail" >
         <argument
             android:name="id"
-            app:argType="long" />
+            app:argType="string" />
     </fragment>
 
 </navigation>
