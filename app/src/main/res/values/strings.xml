@@ -23,6 +23,7 @@
     <string name="biometric_hardware_is_unavailable">Biometric hardware is unavailable</string>
     <string name="no_biometric_hardware">No biometric hardware</string>
     <string name="biometric_none_enrolled">Biometric none enrolled</string>
+    <string name="you_have_no_rockets_added_to_favorites_list">You have no rockets added to favorites list</string>
 
 
 </resources>

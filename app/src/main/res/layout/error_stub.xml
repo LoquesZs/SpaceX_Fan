@@ -12,11 +12,4 @@
         android:textAlignment="center"
         android:text="@string/error" />
 
-    <com.google.android.material.button.MaterialButton
-        style="@style/Widget.Material3.Button.TextButton"
-        android:id="@+id/explore"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/try_again" />
 </LinearLayout>
