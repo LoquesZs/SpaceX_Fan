@@ -11,9 +11,11 @@ interface SpaceXFanRepository {
 
     fun getRockets(): Single<List<Rocket>>
 
+    fun getRocketByID(id: String): Single<Rocket>
+
     fun getLaunches(): Single<List<Launch>>
 
-    fun getRocketByID(id: String): Single<Rocket>
+    fun getLaunchByID(id: String): Single<Launch>
 
     fun addToFavorites(rocketEntity: RocketEntity): Completable
 

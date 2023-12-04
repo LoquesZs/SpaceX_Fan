@@ -18,4 +18,9 @@ interface SpaceXFanApiService {
 
     @GET("launches")
     fun getLaunches(): Single<List<Launch>>
+
+    @GET("launches/{id}")
+    fun getLaunchByID(
+        @Path("id") id: String
+    ): Single<Launch>
 }

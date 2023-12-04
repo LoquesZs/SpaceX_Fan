@@ -31,6 +31,12 @@ class SpaceXFanRepositoryImpl @Inject constructor(
             .observeOn(AndroidSchedulers.mainThread())
     }
 
+    override fun getLaunchByID(id: String): Single<Launch> {
+        return apiService.getLaunchByID(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+    }
+
     override fun getRocketByID(id: String): Single<Rocket> {
         return apiService.getRocketByID(id)
             .subscribeOn(Schedulers.io())
