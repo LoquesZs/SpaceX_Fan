@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import by.loqueszs.spacexfan.R
 import by.loqueszs.spacexfan.databinding.FragmentLaunchesBinding
@@ -36,11 +37,19 @@ class LaunchesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.launchesRecyclerView.layoutManager = LinearLayoutManager(context)
-        val adapter = LaunchesAdapter { }
+        val adapter = LaunchesAdapter { id: String ->
+            findNavController().navigate(LaunchesFragmentDirections.actionLaunchesFragmentToLaunchDetailFragment(id))
+        }
         binding.launchesRecyclerView.adapter = adapter
 
         viewModel.launches.observe(viewLifecycleOwner) { launches ->
+            binding.progressBar.visibility = View.INVISIBLE
+            binding.launchesRecyclerView.visibility = View.VISIBLE
             adapter.submitList(launches)
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
     }
 }

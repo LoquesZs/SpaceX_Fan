@@ -11,13 +11,12 @@ class LaunchViewHolder(
     private val onClick: (id: String) -> Unit
 ) : ViewBindingViewHolder<LaunchCardBinding>(parent, LaunchCardBinding::inflate) {
 
-    fun bind(id: String, name: String, description: String, url: String) {
-        binding.root.setOnClickListener {
+    fun bind(id: String, name: String, url: String) {
+        binding.explore.setOnClickListener {
             onClick(id)
         }
 
         binding.name.text = name
-        binding.description.text = description
 
         Glide.with(context)
             .load(url)

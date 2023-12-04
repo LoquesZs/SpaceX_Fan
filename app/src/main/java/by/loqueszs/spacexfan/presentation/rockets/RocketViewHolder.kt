@@ -15,7 +15,7 @@ class RocketViewHolder(
     private val removeFromFavorites: (id: String) -> Unit
 ) : ViewBindingViewHolder<RocketCardBinding>(parent, RocketCardBinding::inflate) {
 
-    fun bind(id: String, name: String, url: String, favorite: Boolean) {
+    fun bind(id: String, name: String, url: String?, favorite: Boolean) {
         binding.root.setOnClickListener {
             onClick(id)
         }
@@ -31,7 +31,7 @@ class RocketViewHolder(
                         RocketEntity(
                             id = id,
                             name = name,
-                            image = url
+                            image = url.orEmpty()
                         )
                     )
                 }

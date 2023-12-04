@@ -18,8 +18,11 @@ class LaunchesAdapter(
         holder.bind(
             id = launch.id,
             name = launch.name.orEmpty(),
-            description = launch.details.orEmpty(),
-            url = launch.links?.patch?.small.orEmpty()
+            url = if (launch.links?.flickr?.original.isNullOrEmpty()) {
+                launch.links?.patch?.large.orEmpty()
+            } else {
+                launch.links?.flickr?.original?.first().orEmpty()
+            }
         )
     }
 

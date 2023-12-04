@@ -55,7 +55,7 @@ class RocketDetailFragment : Fragment() {
             .subscribe(
                 { rocket ->
                     Glide.with(this)
-                        .load(rocket.flickrImages.first())
+                        .load(rocket.flickrImages.firstOrNull())
                         .into(binding.rocket.rocketImage)
                     binding.rocket.favorite.addOnCheckedStateChangedListener { checkBox, state ->
                         when (state) {
@@ -67,12 +67,13 @@ class RocketDetailFragment : Fragment() {
                             }
                         }
                     }
+                    binding.description.text = rocket.description
                     binding.height.text = "${rocket.height?.meters} m/${rocket.height?.feet} ft"
                     binding.diameter.text = "${rocket.diameter?.meters} m/${rocket.diameter?.feet} ft"
                     binding.mass.text = "${rocket.mass?.kg} kg/${rocket.mass?.lb} lb"
                     Log.d(javaClass.simpleName, rocket.flickrImages.toString())
                     adapter.submitList(rocket.flickrImages)
-                    adapter.notifyDataSetChanged()
+//                    adapter.notifyDataSetChanged()
                 },
                 {
                     Log.d(javaClass.simpleName, it.stackTraceToString())

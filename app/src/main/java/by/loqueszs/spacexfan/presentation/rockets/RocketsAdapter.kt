@@ -21,7 +21,7 @@ class RocketsAdapter(
         holder.bind(
             id = rocket.first.id,
             name = rocket.first.name.orEmpty(),
-            url = rocket.first.flickrImages.first(),
+            url = rocket.first.flickrImages.firstOrNull(),
             favorite = rocket.second
         )
     }
