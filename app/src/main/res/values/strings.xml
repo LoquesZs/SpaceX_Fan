@@ -7,8 +7,10 @@
     <string name="favorites_fragment_label">Favorite Rockets</string>
     <string name="launches_fragment_label">Upcoming Launches</string>
     <string name="detail_fragment_label">Detail</string>
+    <string name="launch_fragment_label">Launch</string>
+    <string name="authorization_fragment_label">Authorization</string>
 
-<!--    Strings used for bottom navigation-->
+    <!--    Strings used for bottom navigation-->
     <string name="rockets">Rockets</string>
     <string name="favorites">Favorites</string>
     <string name="launches">Launches</string>
@@ -24,6 +26,10 @@
     <string name="no_biometric_hardware">No biometric hardware</string>
     <string name="biometric_none_enrolled">Biometric none enrolled</string>
     <string name="you_have_no_rockets_added_to_favorites_list">You have no rockets added to favorites list</string>
-
+    <string name="explore">Explore</string>
+    <string name="hint_e_mail">E-mail</string>
+    <string name="hint_password">Password</string>
+    <string name="authorization_failed">Authorization failed</string>
+    <string name="invalid_email_address">Invalid email address</string>
 
 </resources>

@@ -17,6 +17,10 @@
         android:id="@+id/action_toLaunchesFragment"
         app:destination="@id/LaunchesFragment" />
 
+    <action
+        android:id="@+id/action_toAuthFragment"
+        app:destination="@id/AuthorizationFragment" />
+
     <fragment
         android:id="@+id/RocketsFragment"
         android:name="by.loqueszs.spacexfan.presentation.rockets.RocketsFragment"
@@ -43,7 +47,11 @@
         android:id="@+id/LaunchesFragment"
         android:name="by.loqueszs.spacexfan.presentation.launches.LaunchesFragment"
         android:label="@string/launches_fragment_label"
-        tools:layout="@layout/fragment_launches" />
+        tools:layout="@layout/fragment_launches" >
+        <action
+            android:id="@+id/action_LaunchesFragment_to_LaunchDetailFragment"
+            app:destination="@id/launchDetailFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/RocketDetailFragment"
@@ -53,6 +61,23 @@
         <argument
             android:name="id"
             app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/launchDetailFragment"
+        android:name="by.loqueszs.spacexfan.presentation.launchesdetail.LaunchDetailFragment"
+        android:label="@string/launch_fragment_label"
+        tools:layout="@layout/fragment_launch_detail">
+        <argument
+            android:name="id"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/AuthorizationFragment"
+        android:name="by.loqueszs.spacexfan.presentation.auth.AuthorizationFragment"
+        android:label="@string/authorization_fragment_label"
+        tools:layout="@layout/fragment_authorization">
     </fragment>
 
 </navigation>
