@@ -5,18 +5,17 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import by.loqueszs.spacexfan.core.database.entities.RocketEntity
-import io.reactivex.Completable
-import io.reactivex.Flowable
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface RocketsDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun addToFavorites(rocketEntity: RocketEntity): Completable
+    suspend fun addToFavorites(rocketEntity: RocketEntity)
 
     @Query("DELETE FROM ${RocketEntity.TABLE_NAME} WHERE id = :id")
-    fun deleteFromFavorites(id: String): Completable
+    suspend fun deleteFromFavorites(id: String)
 
     @Query("SELECT * FROM ${RocketEntity.TABLE_NAME}")
-    fun getFavorites(): Flowable<List<RocketEntity>>
+    fun getFavorites(): Flow<List<RocketEntity>>
 }

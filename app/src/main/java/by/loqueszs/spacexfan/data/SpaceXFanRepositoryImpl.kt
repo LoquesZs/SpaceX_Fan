@@ -6,58 +6,40 @@ import by.loqueszs.spacexfan.core.network.SpaceXFanApiService
 import by.loqueszs.spacexfan.core.network.models.launches.Launch
 import by.loqueszs.spacexfan.core.network.models.rockets.Rocket
 import by.loqueszs.spacexfan.domain.SpaceXFanRepository
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlinx.coroutines.flow.Flow
 
 @Singleton
 class SpaceXFanRepositoryImpl @Inject constructor(
     private val apiService: SpaceXFanApiService,
     private val dao: RocketsDao
 ) : SpaceXFanRepository {
-    override fun getRockets(): Single<List<Rocket>> {
+    override suspend fun getRockets(): List<Rocket> {
         return apiService.getRockets()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getLaunches(): Single<List<Launch>> {
+    override suspend fun getLaunches(): List<Launch> {
         return apiService.getLaunches()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getLaunchByID(id: String): Single<Launch> {
+    override suspend fun getLaunchByID(id: String): Launch {
         return apiService.getLaunchByID(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getRocketByID(id: String): Single<Rocket> {
+    override suspend fun getRocketByID(id: String): Rocket {
         return apiService.getRocketByID(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun addToFavorites(rocketEntity: RocketEntity): Completable {
+    override suspend fun addToFavorites(rocketEntity: RocketEntity) {
         return dao.addToFavorites(rocketEntity)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun deleteFromFavorites(id: String): Completable {
+    override suspend fun deleteFromFavorites(id: String) {
         return dao.deleteFromFavorites(id)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 
-    override fun getFavorites(): Flowable<List<RocketEntity>> {
+    override suspend fun getFavorites(): Flow<List<RocketEntity>> {
         return dao.getFavorites()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
     }
 }

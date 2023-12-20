@@ -3,23 +3,20 @@ package by.loqueszs.spacexfan.domain
 import by.loqueszs.spacexfan.core.database.entities.RocketEntity
 import by.loqueszs.spacexfan.core.network.models.launches.Launch
 import by.loqueszs.spacexfan.core.network.models.rockets.Rocket
-import io.reactivex.Completable
-import io.reactivex.Flowable
-import io.reactivex.Single
+import kotlinx.coroutines.flow.Flow
 
 interface SpaceXFanRepository {
 
-    fun getRockets(): Single<List<Rocket>>
+    suspend fun getRockets(): List<Rocket>
 
-    fun getRocketByID(id: String): Single<Rocket>
+    suspend fun getRocketByID(id: String): Rocket
 
-    fun getLaunches(): Single<List<Launch>>
+    suspend fun getLaunches(): List<Launch>
 
-    fun getLaunchByID(id: String): Single<Launch>
+    suspend fun getLaunchByID(id: String): Launch
 
-    fun addToFavorites(rocketEntity: RocketEntity): Completable
+    suspend fun addToFavorites(rocketEntity: RocketEntity)
 
-    fun deleteFromFavorites(id: String): Completable
-
-    fun getFavorites(): Flowable<List<RocketEntity>>
+    suspend fun deleteFromFavorites(id: String)
+    suspend fun getFavorites(): Flow<List<RocketEntity>>
 }

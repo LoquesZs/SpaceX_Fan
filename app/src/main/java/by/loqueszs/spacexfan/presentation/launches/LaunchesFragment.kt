@@ -8,10 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import by.loqueszs.spacexfan.R
 import by.loqueszs.spacexfan.databinding.FragmentLaunchesBinding
-import by.loqueszs.spacexfan.databinding.FragmentRocketsBinding
-import by.loqueszs.spacexfan.presentation.rockets.RocketsViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,7 +23,8 @@ class LaunchesFragment : Fragment() {
     private val viewModel by viewModels<LaunchesViewModel>()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         // Inflate the layout for this fragment
@@ -47,9 +45,5 @@ class LaunchesFragment : Fragment() {
             binding.launchesRecyclerView.visibility = View.VISIBLE
             adapter.submitList(launches)
         }
-    }
-
-    override fun onStart() {
-        super.onStart()
     }
 }

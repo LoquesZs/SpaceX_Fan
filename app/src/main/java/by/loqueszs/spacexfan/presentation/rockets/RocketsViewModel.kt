@@ -5,12 +5,17 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import by.loqueszs.spacexfan.core.database.entities.RocketEntity
 import by.loqueszs.spacexfan.core.network.models.rockets.Rocket
 import by.loqueszs.spacexfan.domain.SpaceXFanRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.distinctUntilChanged
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -46,13 +51,6 @@ class RocketsViewModel @Inject constructor(
     val error: LiveData<Boolean>
         get() = _error
 
-    private val compositeDisposable = CompositeDisposable()
-
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
-    }
-
     init {
         _result.addSource(rockets) { rocketsList ->
             _result.value = rocketsList.map { rocket ->
@@ -70,34 +68,47 @@ class RocketsViewModel @Inject constructor(
                 )
             }
         }
-        repository.getRockets()
-            .subscribe(
-                { rocketsList ->
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                val rocketsList = repository.getRockets()
+                withContext(Dispatchers.Main) {
                     _rockets.value = rocketsList
-                },
-                {
-                    Log.d("getRockets()", it.message.orEmpty())
                 }
-            )
-            .addTo(compositeDisposable)
+            } catch (e: Exception) {
+                Log.d("getRockets()", e.stackTraceToString())
+            }
+        }
 
-        repository.getFavorites()
-            .subscribe(
-                { favoritesList ->
-                    _favorites.value = favoritesList
-                },
-                {
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.getFavorites()
+                .distinctUntilChanged()
+                .catch {
                     Log.d("getFavorites()", it.stackTraceToString())
+                    emit(emptyList())
                 }
-            )
-            .addTo(compositeDisposable)
+                .collect { favoritesList ->
+                    _favorites.postValue(favoritesList)
+                }
+        }
     }
 
     fun addToFavorites(rocket: RocketEntity) {
-        repository.addToFavorites(rocket).subscribe().addTo(compositeDisposable)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repository.addToFavorites(rocket)
+            } catch (e: Exception) {
+                Log.d("addToFavorites()", e.stackTraceToString())
+            }
+        }
     }
 
     fun removeFromFavorites(id: String) {
-        repository.deleteFromFavorites(id).subscribe().addTo(compositeDisposable)
+        viewModelScope.launch(Dispatchers.IO) {
+            try {
+                repository.deleteFromFavorites(id)
+            } catch (e: Exception) {
+                Log.d("removeFromFavorites()", e.stackTraceToString())
+            }
+        }
     }
 }

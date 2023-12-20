@@ -14,8 +14,6 @@ import by.loqueszs.spacexfan.databinding.FragmentRocketDetailBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.checkbox.MaterialCheckBox
 import dagger.hilt.android.AndroidEntryPoint
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 
 @AndroidEntryPoint
 class RocketDetailFragment : Fragment() {
@@ -27,8 +25,6 @@ class RocketDetailFragment : Fragment() {
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
-
-    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,40 +45,34 @@ class RocketDetailFragment : Fragment() {
         binding.images.layoutManager = LinearLayoutManager(this.context)
 
         viewModel.getRocket(args.id)
-            .doOnSuccess {
-                binding.rocket.favorite.isChecked = viewModel.isFavorite(it.id)
-            }
-            .subscribe(
-                { rocket ->
-                    Glide.with(this)
-                        .load(rocket.flickrImages.firstOrNull())
-                        .into(binding.rocket.rocketImage)
-                    binding.rocket.favorite.addOnCheckedStateChangedListener { checkBox, state ->
-                        when (state) {
-                            MaterialCheckBox.STATE_CHECKED -> {
-                                viewModel.addToFavorites(RocketEntity(rocket.id, rocket.name.orEmpty(), rocket.flickrImages.first()))
-                            }
-                            MaterialCheckBox.STATE_UNCHECKED -> {
-                                viewModel.deleteFromFavorites(rocket.id)
-                            }
-                        }
+        viewModel.rocket.observe(viewLifecycleOwner) { rocket ->
+            binding.rocket.favorite.isChecked = viewModel.isFavorite(rocket.id)
+            Glide.with(this)
+                .load(rocket.flickrImages.firstOrNull())
+                .into(binding.rocket.rocketImage)
+            binding.rocket.favorite.addOnCheckedStateChangedListener { checkBox, state ->
+                when (state) {
+                    MaterialCheckBox.STATE_CHECKED -> {
+                        viewModel.addToFavorites(
+                            RocketEntity(
+                                rocket.id,
+                                rocket.name.orEmpty(),
+                                rocket.flickrImages.first()
+                            )
+                        )
                     }
-                    binding.description.text = rocket.description
-                    binding.height.text = "${rocket.height?.meters} m/${rocket.height?.feet} ft"
-                    binding.diameter.text = "${rocket.diameter?.meters} m/${rocket.diameter?.feet} ft"
-                    binding.mass.text = "${rocket.mass?.kg} kg/${rocket.mass?.lb} lb"
-                    Log.d(javaClass.simpleName, rocket.flickrImages.toString())
-                    adapter.submitList(rocket.flickrImages)
-//                    adapter.notifyDataSetChanged()
-                },
-                {
-                    Log.d(javaClass.simpleName, it.stackTraceToString())
+                    MaterialCheckBox.STATE_UNCHECKED -> {
+                        viewModel.deleteFromFavorites(rocket.id)
+                    }
                 }
-            ).addTo(compositeDisposable)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        compositeDisposable.clear()
+            }
+            binding.description.text = rocket.description
+            binding.height.text = "${rocket.height?.meters} m/${rocket.height?.feet} ft"
+            binding.diameter.text = "${rocket.diameter?.meters} m/${rocket.diameter?.feet} ft"
+            binding.mass.text = "${rocket.mass?.kg} kg/${rocket.mass?.lb} lb"
+            Log.d(javaClass.simpleName, rocket.flickrImages.toString())
+            adapter.submitList(rocket.flickrImages)
+//                    adapter.notifyDataSetChanged()
+        }
     }
 }

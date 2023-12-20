@@ -2,25 +2,24 @@ package by.loqueszs.spacexfan.core.network
 
 import by.loqueszs.spacexfan.core.network.models.launches.Launch
 import by.loqueszs.spacexfan.core.network.models.rockets.Rocket
-import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface SpaceXFanApiService {
 
     @GET("rockets")
-    fun getRockets(): Single<List<Rocket>>
+    suspend fun getRockets(): List<Rocket>
 
     @GET("rockets/{id}")
-    fun getRocketByID(
+    suspend fun getRocketByID(
         @Path("id") id: String
-    ): Single<Rocket>
+    ): Rocket
 
     @GET("launches")
-    fun getLaunches(): Single<List<Launch>>
+    suspend fun getLaunches(): List<Launch>
 
     @GET("launches/{id}")
-    fun getLaunchByID(
+    suspend fun getLaunchByID(
         @Path("id") id: String
-    ): Single<Launch>
+    ): Launch
 }

@@ -4,12 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import by.loqueszs.spacexfan.core.network.models.launches.Launch
 import by.loqueszs.spacexfan.domain.SpaceXFanRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.addTo
 import javax.inject.Inject
+import kotlinx.coroutines.launch
 
 @HiltViewModel
 class LaunchesViewModel @Inject constructor(
@@ -22,21 +22,14 @@ class LaunchesViewModel @Inject constructor(
     val launches: LiveData<List<Launch>>
         get() = _launches
 
-    private val compositeDisposable = CompositeDisposable()
-    override fun onCleared() {
-        super.onCleared()
-        compositeDisposable.clear()
-    }
-
     init {
-        repository.getLaunches()
-            .subscribe(
-                { launchesList ->
-                    _launches.value = launchesList
-                },
-                {
-                    Log.d(javaClass.name, it.message.orEmpty())
-                }
-            ).addTo(compositeDisposable)
+        viewModelScope.launch {
+            try {
+                val launchesList = repository.getLaunches()
+                _launches.value = launchesList
+            } catch (e: Exception) {
+                Log.d(javaClass.name, e.stackTraceToString())
+            }
+        }
     }
 }
